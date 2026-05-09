@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Modern Chat App</title>
+
+  <!-- FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+  <div class="chat-container">
+
+    <!-- HEADER -->
+    <div class="chat-header">
+
+      <div class="profile">
+        A
+      </div>
+
+      <div class="header-text">
+
+        <h2>Alex</h2>
+
+        <p>Online</p>
+
+      </div>
+
+    </div>
+
+    <!-- CHAT -->
+    <div class="chat-box" id="chatBox">
+
+      <!-- PESAN AWAL -->
+      <div class="message friend">
+        Halo 👋
+      </div>
+
+    </div>
+
+    <!-- INPUT -->
+    <div class="chat-input">
+
+      <input
+        type="text"
+        id="messageInput"
+        placeholder="Ketik pesan..."
+      >
+
+      <button onclick="sendMessage()">
+        Kirim
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+
+    const chatBox =
+      document.getElementById("chatBox");
+
+    const messageInput =
+      document.getElementById("messageInput");
+
+
+    // 20 TEMPLATE BALASAN
+    const replies = [
+
+      "kamu mau jalan jalan gaa?",
+      "ke rumah aku buat ketemu ama keluarga akuu",
+      "gapapa ihh, santai ajaa",
+      "iya mereka mau ketemu sama kamu",
+      "katanya mau kenalan sama kamu",
+      "kalo bisa sih jam 2 siang",
+      "iya siii",
+      "yaudah nanti aku bilangin sama mereka",
+      "iya sama samaa",
+      "ke pakuwon gimanaa?",
+      "Aku mau beli parfum",
+      "gatau, nanti aku liat liat dulu",
+      "jangan ahh, ngerepotin kamu",
+      "gausah, kan kita beloom jadi pasangan sah",
+      "iya lah, siapa duluu",
+      "jemputnya abis asar yaa",
+      "yaudah aku siap siap dulu ya tirr",
+      "ilyt",
+      
+    ];
+
+
+    let replyIndex = 0;
+
+
+    // FUNCTION KIRIM PESAN
+    function sendMessage(){
+
+      const text =
+        messageInput.value.trim();
+
+      if(text === "") return;
+
+
+      // PESAN SAYA
+      const myMessage =
+        document.createElement("div");
+
+      myMessage.classList.add(
+        "message",
+        "me"
+      );
+
+      myMessage.innerText = text;
+
+      chatBox.appendChild(myMessage);
+
+
+      // AUTO SCROLL
+      chatBox.scrollTop =
+        chatBox.scrollHeight;
+
+
+      // KOSONGKAN INPUT
+      messageInput.value = "";
+
+
+      // BALASAN TEMAN
+      setTimeout(()=>{
+
+        const friendMessage =
+          document.createElement("div");
+
+        friendMessage.classList.add(
+          "message",
+          "friend"
+        );
+
+        friendMessage.innerText =
+          replies[replyIndex];
+
+        chatBox.appendChild(friendMessage);
+
+
+        // AUTO SCROLL
+        chatBox.scrollTop =
+          chatBox.scrollHeight;
+
+
+        // PINDAH KE DIALOG SELANJUTNYA
+        replyIndex++;
+
+        // RESET JIKA HABIS
+        if(replyIndex >= replies.length){
+
+          replyIndex = 0;
+
+        }
+
+      },1000);
+
+    }
+
+
+    // ENTER UNTUK KIRIM
+    messageInput.addEventListener(
+
+      "keypress",
+
+      function(e){
+
+        if(e.key === "Enter"){
+
+          sendMessage();
+
+        }
+
+      }
+
+    );
+
+  </script>
+
+</body>
+  </html>
